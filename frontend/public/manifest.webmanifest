@@ -1,0 +1,10 @@
+{
+  "name": "AMPWISE Fleet Charging",
+  "short_name": "AMPWISE",
+  "description": "EV fleet charging booking and power allocation dashboard",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f3f6fa",
+  "theme_color": "#12243a",
+  "icons": [{ "src": "/ampwise.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}
