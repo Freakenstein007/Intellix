@@ -1,4 +1,6 @@
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:9000/api';
+// Keep local Vite development pointed at the separate FastAPI process. In the
+// single-service production container, the browser and API share one origin.
+const API_BASE = import.meta.env.VITE_API_BASE || (import.meta.env.DEV ? 'http://localhost:9000/api' : '/api');
 
 export async function api(path, options = {}) {
   const user = JSON.parse(localStorage.getItem('ampwise-user') || 'null');

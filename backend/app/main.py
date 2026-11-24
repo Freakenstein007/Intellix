@@ -2,9 +2,12 @@ import asyncio
 import os
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
+from pathlib import Path
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from sqlalchemy import desc, inspect, text
 from sqlalchemy.orm import Session, joinedload
 
@@ -544,6 +547,31 @@ def demo_reset(x_user_id: int | None = Header(None), db: Session = Depends(get_d
     db.commit()
     seed_database(db)
     return {"ok": True, "message": "AMPWISE demo data reset."}
+
+
+# When Docker builds the Vite app into frontend/dist, FastAPI serves both the
+# UI and API from one origin. Local Vite development keeps using port 5173.
+FRONTEND_DIST = Path(__file__).resolve().parents[2] / "frontend" / "dist"
+if FRONTEND_DIST.is_dir():
+    assets_dir = FRONTEND_DIST / "assets"
+    if assets_dir.is_dir():
+        app.mount("/assets", StaticFiles(directory=assets_dir), name="frontend-assets")
+
+    @app.get("/{path:path}", include_in_schema=False)
+    def frontend_routes(path: str):
+        if path == "api" or path.startswith("api/"):
+            raise HTTPException(status_code=404, detail="API route not found.")
+
+        dist_root = FRONTEND_DIST.resolve()
+        requested_file = (dist_root / path).resolve()
+        try:
+            requested_file.relative_to(dist_root)
+        except ValueError as error:
+            raise HTTPException(status_code=404, detail="Page not found.") from error
+
+        if requested_file.is_file():
+            return FileResponse(requested_file)
+        return FileResponse(dist_root / "index.html")
 
 
 if __name__ == "__main__":

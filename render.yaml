@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: ampwise-demo
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    autoDeployTrigger: 'off'
+    healthCheckPath: /api/health
+    envVars:
+      - key: SIM_SPEED
+        value: '1'

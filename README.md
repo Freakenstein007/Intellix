@@ -1,6 +1,17 @@
 # AMPWISE — smart EV bus charging
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https%3A%2F%2Fgithub.com%2FFreakenstein007%2FIntellix)
+
 Hackathon prototype for operator charging bookings and dynamic station power allocation. All stations, fleet data, tariffs, charging, bills, and ratings are simulated. The app footer marks this clearly.
+
+## Get a shareable app link
+
+1. Push the latest project files to the GitHub `main` branch.
+2. Click **Deploy to Render** above and connect GitHub if asked.
+3. Review and deploy the `ampwise-demo` web service. Render builds the frontend and backend together from the root `Dockerfile`.
+4. When the service is live, copy its `onrender.com` URL and send that link. The URL opens the app directly; nobody needs to install Python, Node.js, or run local servers.
+
+This is a public demo without real user authentication, so use simulated data only. The free web service may take about a minute to wake after 15 minutes idle, and its SQLite demo bookings reset when it restarts or redeploys. Render documents these free-service limits [here](https://render.com/docs/free).
 
 ## Run locally
 
