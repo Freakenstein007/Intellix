@@ -6,6 +6,14 @@ Hackathon prototype for operator charging bookings and dynamic station power all
 
 Requirements: Python 3.11+, Node.js 20+, and npm. The backend uses SQLAlchemy, creates new tables at startup, and applies a small additive migration for the emergency-override field when upgrading an existing local database.
 
+### Easiest option on Windows
+
+1. Install Python 3.11+ and Node.js 20+ once.
+2. Download the repository as a ZIP from GitHub and extract it, or clone it with Git.
+3. Double-click `start-ampwise.bat` in the project folder.
+
+On first launch, the script creates a Python environment, installs the backend and frontend packages, starts both servers in separate windows, and opens [http://localhost:5173/book](http://localhost:5173/book). Leave both AMPWISE server windows open while using the app; close them to stop it.
+
 ### 1. Install and start the backend
 
 From the project root in PowerShell:
